@@ -25,9 +25,6 @@ bool softStopStepper;
 
 #if defined(DEVICE_1) || defined(DEVICE_DEBUG)
 
-
-
-
 #define MTR_PUMP_CONT	2
 #define SEL_CONT	3
 #define MTR_PUMP_ISI	4
@@ -57,40 +54,40 @@ bool softStopStepper;
 
 void init_device_satu()
 {
-	digitalWrite(STP_DIR,		LOW);	//10
-	digitalWrite(STP_PULSE,		LOW);	//11
-	digitalWrite(STP_EN,		HIGH);	//12
+	setPin(STP_DIR,		LOW);	//10
+	setPin(STP_PULSE,		LOW);	//11
+	setPin(STP_EN,		HIGH);	//12
 	freqGenerator_setPeriod(STP_SPEED);	//
 	freqGenerator_disable();		//
 						//
-	digitalWrite(MTR_PUMP_CONT,	HIGH);	//3
-	digitalWrite(MTR_PUMP_ISI,	HIGH);	//4
-	digitalWrite(SEL_CONT,		HIGH);	//6
-	digitalWrite(SEL_BILAS,		HIGH);	//7
-	digitalWrite(HEATER,		HIGH);	//8
-	digitalWrite(AERATOR,		HIGH);	//8
-	digitalWrite(SIKAT_ENABELER,	HIGH);	//9
+	setPin(MTR_PUMP_CONT,	HIGH);	//3
+	setPin(MTR_PUMP_ISI,	HIGH);	//4
+	setPin(SEL_CONT,		HIGH);	//6
+	setPin(SEL_BILAS,		HIGH);	//7
+	setPin(HEATER,		HIGH);	//8
+	setPin(AERATOR,		HIGH);	//8
+	setPin(SIKAT_ENABELER,	HIGH);	//9
 						//
-	pinMode(MTR_PUMP_CONT,	OUTPUT);	//3
-	pinMode(MTR_PUMP_ISI,	OUTPUT);	//4
-	pinMode(SEL_CONT,	OUTPUT);	//6
-	pinMode(SEL_BILAS,	OUTPUT);	//7
-	pinMode(SEL_TAMPUNG,	OUTPUT);	//8
-	pinMode(SIKAT_ENABELER,	OUTPUT);	//9
-	pinMode(HEATER,		OUTPUT);
-	pinMode(AERATOR,	OUTPUT);
+	initPin(MTR_PUMP_CONT,	OUTPUT);	//3
+	initPin(MTR_PUMP_ISI,	OUTPUT);	//4
+	initPin(SEL_CONT,	OUTPUT);	//6
+	initPin(SEL_BILAS,	OUTPUT);	//7
+	initPin(SEL_TAMPUNG,	OUTPUT);	//8
+	initPin(SIKAT_ENABELER,	OUTPUT);	//9
+	initPin(HEATER,		OUTPUT);
+	initPin(AERATOR,	OUTPUT);
 						//
-	pinMode(STP_DIR,	OUTPUT);	//10
-	pinMode(STP_PULSE,	OUTPUT);	//11
-	pinMode(STP_EN,		OUTPUT);	//12
+	initPin(STP_DIR,	OUTPUT);	//10
+	initPin(STP_PULSE,	OUTPUT);	//11
+	initPin(STP_EN,		OUTPUT);	//12
 						//
-	pinMode(SW_LMT_ATAS,	INPUT);		//A0
-	pinMode(SW_LMT_BAWAH,	INPUT);		//A1
-	pinMode(SW_ATAS,	INPUT);		//A2
-	pinMode(SW_BAWAH,	INPUT);		//A3
-	pinMode(SW_SET_ISI,	INPUT);		//A4
-	pinMode(SW_SET_BILAS,	INPUT);		//A5
-	pinMode(SW_SET_TAMPUNG,	INPUT);		//A6
+	initPin(SW_LMT_ATAS,	INPUT);		//A0
+	initPin(SW_LMT_BAWAH,	INPUT);		//A1
+	initPin(SW_ATAS,	INPUT);		//A2
+	initPin(SW_BAWAH,	INPUT);		//A3
+	initPin(SW_SET_ISI,	INPUT);		//A4
+	initPin(SW_SET_BILAS,	INPUT);		//A5
+	initPin(SW_SET_TAMPUNG,	INPUT);		//A6
 }
 
 RS sikatDisabelerLatch;
@@ -120,26 +117,26 @@ TON delayOnSikatDisabeler(500);
 
 void start_device_satu()
 {
-	bool _switchTmpg 			= digitalRead(SW_SET_TAMPUNG);
-	bool _switchMengisi 			= digitalRead(SW_SET_ISI); 
-	bool _switchBilas 			= digitalRead(SW_SET_BILAS);
+	bool _switchTmpg 			= getPin(SW_SET_TAMPUNG);
+	bool _switchMengisi 			= getPin(SW_SET_ISI); 
+	bool _switchBilas 			= getPin(SW_SET_BILAS);
 	bool _switchLimitAtas		= analogRead(SW_LMT_ATAS) > 400;
 	bool _switchLimitBawah		= analogRead(SW_LMT_BAWAH) > 400;
-//	bool _switchLimitAtas		= digitalRead(SW_LMT_ATAS);
-//	bool _switchLimitBawah		= digitalRead(SW_LMT_BAWAH);
-	bool _switchGoToAtas			= digitalRead(SW_ATAS);
-	bool _switchGoToBawah		= digitalRead(SW_BAWAH);
+//	bool _switchLimitAtas		= getPin(SW_LMT_ATAS);
+//	bool _switchLimitBawah		= getPin(SW_LMT_BAWAH);
+	bool _switchGoToAtas			= getPin(SW_ATAS);
+	bool _switchGoToBawah		= getPin(SW_BAWAH);
 	// 					  v----bypass switch melalui relay yang hanya aktif ketika penyikat berada dibawah
-	bool _sikatDisabeler			= _switchLimitBawah ? (digitalRead(SW_SET_ISI)) : false;		
+	bool _sikatDisabeler			= _switchLimitBawah ? (getPin(SW_SET_ISI)) : false;		
 	
-	bool motorPumpContainerEnable	= !digitalRead(MTR_PUMP_CONT);
-	bool motorPumpMengisiEnable		= !digitalRead(MTR_PUMP_ISI);
-	bool selenoidContainerEnable		= !digitalRead(SEL_CONT);
-	bool selenoidMembilasEnable		= !digitalRead(SEL_BILAS);
-	bool selenoidMenampungEnable		= !digitalRead(SEL_TAMPUNG);
-	bool aerator 			= !digitalRead(AERATOR);
-	bool heater  			= !digitalRead(HEATER);
-	bool sikatEnabeler			= !digitalRead(SIKAT_ENABELER); 
+	bool motorPumpContainerEnable	= !getPin(MTR_PUMP_CONT);
+	bool motorPumpMengisiEnable		= !getPin(MTR_PUMP_ISI);
+	bool selenoidContainerEnable		= !getPin(SEL_CONT);
+	bool selenoidMembilasEnable		= !getPin(SEL_BILAS);
+	bool selenoidMenampungEnable		= !getPin(SEL_TAMPUNG);
+	bool aerator 			= !getPin(AERATOR);
+	bool heater  			= !getPin(HEATER);
+	bool sikatEnabeler			= !getPin(SIKAT_ENABELER); 
 
 	RSwitchBilas 		.process(_switchBilas);
 	FSwitchBilas 		.process(_switchBilas);
@@ -177,21 +174,21 @@ void start_device_satu()
 	EnableStepper		.process((RSwitchGoToAtas.Q && !_switchLimitAtas) || (RSwitchGoToBawah.Q && !_switchLimitBawah) 
 					|| RSwitchBilas.Q || RSikatDisabeler.Q ,softStopStepper);
 	PulseEnableStepper	.process(EnableStepper.Q1, softStopStepper);
-	digitalWrite(STP_DIR, 	!DirectionStepper.Q1);
-	digitalWrite(STP_EN, 	!EnableStepper.Q1);
+	setPin(STP_DIR, 	!DirectionStepper.Q1);
+	setPin(STP_EN, 	!EnableStepper.Q1);
 	if (PulseEnableStepper.Q1)
 		freqGenerator_enable();
 	else
 		freqGenerator_disable();
 
-	digitalWrite(MTR_PUMP_CONT,	!(motorPumpContainerEnable));
-	digitalWrite(MTR_PUMP_ISI,	!(motorPumpMengisiEnable));
-	digitalWrite(SEL_CONT,		!(selenoidContainerEnable));
-	digitalWrite(SEL_BILAS,		!(selenoidMembilasEnable));
-	digitalWrite(SEL_TAMPUNG,	!(selenoidMenampungEnable));
-	digitalWrite(AERATOR, 		!(aerator));
-	digitalWrite(HEATER, 		!(heater));
-	digitalWrite(SIKAT_ENABELER,	!(sikatEnabeler));
+	setPin(MTR_PUMP_CONT,	!(motorPumpContainerEnable));
+	setPin(MTR_PUMP_ISI,	!(motorPumpMengisiEnable));
+	setPin(SEL_CONT,		!(selenoidContainerEnable));
+	setPin(SEL_BILAS,		!(selenoidMembilasEnable));
+	setPin(SEL_TAMPUNG,	!(selenoidMenampungEnable));
+	setPin(AERATOR, 		!(aerator));
+	setPin(HEATER, 		!(heater));
+	setPin(SIKAT_ENABELER,	!(sikatEnabeler));
 
 }
 
@@ -222,38 +219,38 @@ void start_device_satu()
 void init_device_dua()
 {
 
-	digitalWrite(STP_DIR,		LOW);	//10
-	digitalWrite(STP_PULSE,		LOW);	//11
-	digitalWrite(STP_EN,		HIGH);	//12
+	setPin(STP_DIR,		LOW);	//10
+	setPin(STP_PULSE,		LOW);	//11
+	setPin(STP_EN,		HIGH);	//12
 	freqGenerator_setPeriod(STP_SPEED);	//
 	freqGenerator_disable();		//
 						//
-	digitalWrite(SW_LMT_KANAN,	HIGH); //A7
-	digitalWrite(SW_LMT_KIRI,	HIGH); //A6
-	digitalWrite(SW_KANAN,		HIGH); //A5
-	digitalWrite(SW_KIRI,		HIGH); //A4
-	digitalWrite(ENABLE_SIKAT,	HIGH);
+	setPin(SW_LMT_KANAN,	HIGH); //A7
+	setPin(SW_LMT_KIRI,	HIGH); //A6
+	setPin(SW_KANAN,		HIGH); //A5
+	setPin(SW_KIRI,		HIGH); //A4
+	setPin(ENABLE_SIKAT,	HIGH);
 
-	digitalWrite(MTR_SIKAT ,	HIGH);	//2
-	digitalWrite(MTR_PUMP_BILAS,	HIGH);	//3
-	digitalWrite(REL_MODE,	 	HIGH);	//4
-	digitalWrite(REL_DONE,	 	HIGH);	//5
+	setPin(MTR_SIKAT ,	HIGH);	//2
+	setPin(MTR_PUMP_BILAS,	HIGH);	//3
+	setPin(REL_MODE,	 	HIGH);	//4
+	setPin(REL_DONE,	 	HIGH);	//5
 
-	pinMode(SW_LMT_KANAN,	INPUT);		//A0
-	pinMode(SW_LMT_KIRI,	INPUT);		//A1
-	pinMode(SW_KANAN,	INPUT);		//A2
-	pinMode(SW_KIRI,	INPUT);		//A3
-	pinMode(ENABLE_SIKAT, 	INPUT);
-	pinMode(SW_BILAS, 	INPUT);
+	initPin(SW_LMT_KANAN,	INPUT);		//A0
+	initPin(SW_LMT_KIRI,	INPUT);		//A1
+	initPin(SW_KANAN,	INPUT);		//A2
+	initPin(SW_KIRI,	INPUT);		//A3
+	initPin(ENABLE_SIKAT, 	INPUT);
+	initPin(SW_BILAS, 	INPUT);
 
-	pinMode(MTR_SIKAT ,	OUTPUT);	//2
-	pinMode(MTR_PUMP_BILAS,	OUTPUT);	//3
-	pinMode(REL_MODE, 	OUTPUT);	//4
-	pinMode(REL_DONE, 	OUTPUT);	//5
+	initPin(MTR_SIKAT ,	OUTPUT);	//2
+	initPin(MTR_PUMP_BILAS,	OUTPUT);	//3
+	initPin(REL_MODE, 	OUTPUT);	//4
+	initPin(REL_DONE, 	OUTPUT);	//5
 
-	pinMode(STP_DIR,	OUTPUT);	//10
-	pinMode(STP_PULSE,	OUTPUT);	//11
-	pinMode(STP_EN,		OUTPUT);	//12
+	initPin(STP_DIR,	OUTPUT);	//10
+	initPin(STP_PULSE,	OUTPUT);	//11
+	initPin(STP_EN,		OUTPUT);	//12
 }
 
 RS SwitchBilasDua;
@@ -274,17 +271,17 @@ CTU 	sikatJobCounter(5);
 
 void start_device_dua()
 {
-	bool _switchGoToKanan 	= digitalRead(SW_KANAN);
-	bool _switchGoToKiri		= digitalRead(SW_KIRI);
-	bool _switchLimitKanan	= digitalRead(SW_LMT_KANAN);
-	bool _switchLimitKiri	= digitalRead(SW_LMT_KIRI);
-	bool _enableSikat 		= digitalRead(ENABLE_SIKAT);
+	bool _switchGoToKanan 	= getPin(SW_KANAN);
+	bool _switchGoToKiri		= getPin(SW_KIRI);
+	bool _switchLimitKanan	= getPin(SW_LMT_KANAN);
+	bool _switchLimitKiri	= getPin(SW_LMT_KIRI);
+	bool _enableSikat 		= getPin(ENABLE_SIKAT);
 	bool _switchBilas		= analogRead(SW_BILAS) > 400;
 
-	bool motorSikat  		= !digitalRead(MTR_SIKAT);	//2
-	bool motorPumpBilas 		= !digitalRead(MTR_PUMP_BILAS);	//3
-	bool relayMode 		= !digitalRead(REL_MODE);	//4
-	bool jobDone 		= !digitalRead(REL_DONE);	//5
+	bool motorSikat  		= !getPin(MTR_SIKAT);	//2
+	bool motorPumpBilas 		= !getPin(MTR_PUMP_BILAS);	//3
+	bool relayMode 		= !getPin(REL_MODE);	//4
+	bool jobDone 		= !getPin(REL_DONE);	//5
 									
 
 	REnableSikat 		.process(_enableSikat);
@@ -316,17 +313,17 @@ void start_device_dua()
 	relayMode 		= SwitchBilasDua.Q1;
 	jobDone 		= FSwitchBilasDua.Q;
 
-	digitalWrite(STP_DIR, 	!DirectionStepper.Q1 );
-	digitalWrite(STP_EN, 	!EnableStepper.Q1);
+	setPin(STP_DIR, 	!DirectionStepper.Q1 );
+	setPin(STP_EN, 	!EnableStepper.Q1);
 	if (PulseEnableStepper.Q1)
 		freqGenerator_enable();
 	else
 		freqGenerator_disable();
 
-	digitalWrite(MTR_SIKAT ,	!(motorSikat));	//2
-	digitalWrite(MTR_PUMP_BILAS,	!(motorPumpBilas));	//3
-	digitalWrite(REL_MODE,	 	!(relayMode));	//4
-	digitalWrite(REL_DONE,	 	!(jobDone));	//5
+	setPin(MTR_SIKAT ,	!(motorSikat));	//2
+	setPin(MTR_PUMP_BILAS,	!(motorPumpBilas));	//3
+	setPin(REL_MODE,	 	!(relayMode));	//4
+	setPin(REL_DONE,	 	!(jobDone));	//5
 }
 #endif
 
