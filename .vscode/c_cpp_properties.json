@@ -1,0 +1,63 @@
+//
+// !!! WARNING !!! AUTO-GENERATED FILE!
+// PLEASE DO NOT MODIFY IT AND USE "platformio.ini":
+// https://docs.platformio.org/page/projectconf/section_env_build.html#build-flags
+//
+{
+    "configurations": [
+        {
+            "name": "PlatformIO",
+            "includePath": [
+                "/home/a2nr/Documents/PlatformIO/Projects/alga_farm_baremetal/include",
+                "/home/a2nr/Documents/PlatformIO/Projects/alga_farm_baremetal/src",
+                "/home/a2nr/Documents/PlatformIO/Projects/alga_farm_baremetal/lib/device",
+                "/home/a2nr/Documents/PlatformIO/Projects/alga_farm_baremetal/lib/plclib",
+                "/home/a2nr/Documents/PlatformIO/Projects/alga_farm_baremetal/.pio/libdeps/alga_farm_baremetal_2/FrequencyTimer2",
+                "/home/a2nr/.platformio/packages/framework-arduino-avr/cores/arduino",
+                "/home/a2nr/.platformio/packages/framework-arduino-avr/variants/eightanaloginputs",
+                "/home/a2nr/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src",
+                "/home/a2nr/.platformio/packages/framework-arduino-avr/libraries/HID/src",
+                "/home/a2nr/.platformio/packages/framework-arduino-avr/libraries/SPI/src",
+                "/home/a2nr/.platformio/packages/framework-arduino-avr/libraries/SoftwareSerial/src",
+                "/home/a2nr/.platformio/packages/framework-arduino-avr/libraries/Wire/src",
+                ""
+            ],
+            "browse": {
+                "limitSymbolsToIncludedHeaders": true,
+                "path": [
+                    "/home/a2nr/Documents/PlatformIO/Projects/alga_farm_baremetal/include",
+                    "/home/a2nr/Documents/PlatformIO/Projects/alga_farm_baremetal/src",
+                    "/home/a2nr/Documents/PlatformIO/Projects/alga_farm_baremetal/lib/device",
+                    "/home/a2nr/Documents/PlatformIO/Projects/alga_farm_baremetal/lib/plclib",
+                    "/home/a2nr/Documents/PlatformIO/Projects/alga_farm_baremetal/.pio/libdeps/alga_farm_baremetal_2/FrequencyTimer2",
+                    "/home/a2nr/.platformio/packages/framework-arduino-avr/cores/arduino",
+                    "/home/a2nr/.platformio/packages/framework-arduino-avr/variants/eightanaloginputs",
+                    "/home/a2nr/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src",
+                    "/home/a2nr/.platformio/packages/framework-arduino-avr/libraries/HID/src",
+                    "/home/a2nr/.platformio/packages/framework-arduino-avr/libraries/SPI/src",
+                    "/home/a2nr/.platformio/packages/framework-arduino-avr/libraries/SoftwareSerial/src",
+                    "/home/a2nr/.platformio/packages/framework-arduino-avr/libraries/Wire/src",
+                    ""
+                ]
+            },
+            "defines": [
+                "PLATFORMIO=60105",
+                "ARDUINO_AVR_NANO",
+                "DEVICE_2",
+                "F_CPU=16000000L",
+                "ARDUINO_ARCH_AVR",
+                "ARDUINO=10808",
+                "__AVR_ATmega328P__",
+                ""
+            ],
+            "cStandard": "c11",
+            "cppStandard": "c++11",
+            "compilerPath": "/home/a2nr/.platformio/packages/toolchain-atmelavr/bin/avr-gcc",
+            "compilerArgs": [
+                "-mmcu=atmega328p",
+                ""
+            ]
+        }
+    ],
+    "version": 4
+}
