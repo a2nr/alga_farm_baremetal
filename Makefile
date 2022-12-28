@@ -1,21 +1,14 @@
-# Uncomment lines below if you have problems with $PATH
-#SHELL := /bin/bash
-#PATH := /usr/local/bin:$(PATH)
+export PATH:=$(HOME)/.local/bin:$(PATH)
 
 all:
-	pio -f -c vim run
+	platformio -c qtcreator run
 
-upload:
-	pio -f -c vim run --target upload
+# regenerate project files to reflect platformio.ini changes
+project-update:
+	@echo "This will overwrite project metadata files.  Are you sure? [y/N] " \
+	    && read ans && [ $${ans:-'N'} = 'y' ]
+	platformio project init --ide qtcreator
 
-clean:
-	pio -f -c vim run --target clean
-
-program:
-	pio -f -c vim run --target program
-
-uploadfs:
-	pio -f -c vim run --target uploadfs
-
-update:
-	pio -f -c vim update
+# forward any other target (clean, build, etc.) to pio run
+%:
+	platformio -c qtcreator run --target $*

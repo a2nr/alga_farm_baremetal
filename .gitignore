@@ -1,1 +1,5 @@
 .pio
+lib/plclib
+src/secret.h
+mytest/build-modbus_test-Desktop-Debug
+mytest/modbus_test/lib

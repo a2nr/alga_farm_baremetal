@@ -24,10 +24,10 @@
 #define PIN_INPUT7      21
 
 
-#define     PIN_LOW     0
-#define     PIN_HIGH    1
-#define     PIN_INPUT   0
-#define     PIN_OUTPUT  1
+#define PIN_LOW         0
+#define PIN_HIGH        1
+#define PIN_INPUT       0
+#define PIN_OUTPUT      1
 
 
 void init_device();

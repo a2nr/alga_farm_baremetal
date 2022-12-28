@@ -334,6 +334,7 @@ bool CTUD::process() {
     QD = (CV == 0);
     cu_old = CU;
     cd_old = CD;
+    return QU || QD;
 }
 
 bool CTUD::process(bool cu, bool cd, bool reset, bool load) {

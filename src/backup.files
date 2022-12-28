@@ -1,0 +1,10 @@
+Makefile
+platformio.ini
+.gitignore
+src/main.cpp
+src/secret.h
+lib/device/device.cpp
+lib/device/device.h
+lib/device/freqGenerator.h
+lib/plclib/plclib.cpp
+lib/plclib/plclib.h

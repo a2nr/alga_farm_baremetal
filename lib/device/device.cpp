@@ -86,13 +86,13 @@ void start_device()
 #define SW_SET_TAMPUNG		PIN_INPUT2 //A2	// cant digital read
 #define SW_SET_ISI 			PIN_INPUT1 //A1
 
-#define STP_SPEED	400
+#define STP_SPEED_DSATU	400
 
 void init_device_satu()
 {
 
-	freqGenerator_setPeriod(STP_SPEED);	
-	freqGenerator_setOut(false);	
+    freqGenerator_setPeriod(FREQGEN_CHANNEL_(0), STP_SPEED_DSATU);
+	freqGenerator_setOut(FREQGEN_CHANNEL_(0), false);	
 
 	setPin(MTR_PUMP_CONT,	PIN_HIGH);	
 	setPin(MTR_PUMP_ISI,	PIN_HIGH);	
@@ -127,15 +127,18 @@ TOF 		timerOff5second(5000);
 void start_device_satu()
 {
 	bool	_switchLimitBawah	=	getPin(SW_LMT_BAWAH);
+	bool	_switchTampung		=	getPin(SW_SET_TAMPUNG);
 
 	bool	sikatEnabeler		=	!getPin(SIKAT_ENABELER);
 
 
-	timerOn5second		.process(_switchLimitBawah);	
-	sikatEnabeler		= timerOn5second.Q ;	
-	
+	timerOn5second			.process(_switchLimitBawah);	
+	sikatEnabeler			= timerOn5second.Q ;	
 
 	setPin(SIKAT_ENABELER, !sikatEnabeler);
+	setPin(MTR_PUMP_CONT, !_switchTampung);
+	setPin(SEL_CONT, !_switchTampung);
+	setPin(SEL_TAMPUNG, !_switchTampung);
 
 }
 
@@ -161,13 +164,13 @@ void start_device_satu()
 //#define SW_KANAN	A3
 //#define SW_KIRI		0
 
-#define STP_SPEED	300
+#define STP_SPEED_DDUA	300
 
 void init_device_dua()
 {
 
-	freqGenerator_setPeriod(STP_SPEED);	
-	freqGenerator_setOut(false);	
+    freqGenerator_setPeriod(FREQGEN_CHANNEL_(1), STP_SPEED_DDUA);
+	freqGenerator_setOut(FREQGEN_CHANNEL_(1),false);	
 
 	setPin(SW_LMT_KANAN,	PIN_HIGH); 
 	setPin(SW_LMT_KIRI,		PIN_HIGH); 
@@ -196,8 +199,10 @@ void init_device_dua()
 
 R_TRIG		risingTrigSikatEnabeler;
 R_TRIG 		risingTrigLimitKiri;
-CTD			counterDownMenyikat(10);
+CTD			counterDownMenyikat(5);
 TON			timerOnJobDone(5000);
+TOF			timerOffIsiBilas(60000);
+F_TRIG		fallingTrigIsiBilas;
 
 
 void start_device_dua()
@@ -207,20 +212,27 @@ void start_device_dua()
 	bool	_sikatEnabeler 		=	getPin(ENABLE_SIKAT);
 
 	bool	jobDone				=	!getPin(REL_DONE);
+	bool	mtrPenyikat			=	!getPin(MTR_SIKAT);
+	bool	mtrPembilas			=	!getPin(MTR_PUMP_BILAS);
 
 	risingTrigSikatEnabeler		.process(_sikatEnabeler);
+	timerOffIsiBilas			.process(risingTrigSikatEnabeler.Q);
+	fallingTrigIsiBilas 		.process(timerOffIsiBilas.Q);
 	counterDownMenyikat			.process(risingTrigLimitKiri.process(_switchLimitKiri)
 										,risingTrigSikatEnabeler.Q);
 	jobDone 					= counterDownMenyikat.Q && _sikatEnabeler;
 
 	stepperDirection			.process(_switchLimitKanan,_switchLimitKiri);
-	stepperEnable				.process(risingTrigSikatEnabeler.Q, jobDone);
+	stepperEnable				.process(fallingTrigIsiBilas.Q, jobDone);
 	timerOnJobDone				.process(jobDone);
-	
+	mtrPenyikat 				= stepperEnable.Q1;
+	mtrPembilas					= timerOffIsiBilas.Q;
+
+	setPin(MTR_SIKAT,	!mtrPenyikat);
+	setPin(MTR_PUMP_BILAS, !mtrPembilas);	
 	setPin(REL_DONE, 	!timerOnJobDone.Q);
 	setPin(STP_DIR, 	!stepperDirection.Q1);
 	setPin(STP_EN, 		!stepperEnable.Q1);
-	freqGenerator_setOut(stepperEnable.Q1);
+	freqGenerator_setOut(FREQGEN_CHANNEL_(1), stepperEnable.Q1);
 }
 #endif
-
