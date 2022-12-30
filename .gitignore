@@ -1,5 +1,7 @@
 .pio
+.qtc_clangd
 lib/plclib
 src/secret.h
 mytest/build-modbus_test-Desktop-Debug
 mytest/modbus_test/lib
+mytest/modbus_test/.ccls-cache
