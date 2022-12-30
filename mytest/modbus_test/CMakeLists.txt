@@ -25,7 +25,6 @@ add_definitions(
 )
 
 include_directories(
-  /lib/libmodbus/src
   ../../lib/device
   ../../lib/plclib
 )
