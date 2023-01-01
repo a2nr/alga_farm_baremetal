@@ -1,6 +1,8 @@
 #include "device.h"
 #include <Arduino.h>
+#ifdef ARDUINO_ARCH_AVR
 #include <FrequencyTimer2.h>
+#endif
 
 void setup() {
     init_device();

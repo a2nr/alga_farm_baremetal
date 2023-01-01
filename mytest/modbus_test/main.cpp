@@ -21,11 +21,13 @@
 #define  WORKS_PORT     1502
 #endif
 
-#define TABS_BITNB  50
+#define TABS_BITNB  56
+#define TABS_INREG  2
 
 volatile bool runIt;
 
 uint8_t *tab_bits; //[TABS_BITNB];
+uint16_t  *tab_inreg;
 
 void stopIt(int);
 
@@ -58,11 +60,12 @@ int main(void)
       return -1;
     }
 
-  modbus_set_debug(Context, TRUE);
+//  modbus_set_debug(Context, TRUE);
 
   registerMap = modbus_mapping_new(
         TABS_BITNB /*bit*/,
-        0 /*in bit*/, 0 /*h register*/, 0 /*in register*/);
+        0 /*in bit*/, 0 /*h register*/,
+        TABS_INREG /*in register*/);
 
 
   if(registerMap == NULL )
@@ -75,6 +78,7 @@ int main(void)
     }
 //  registerMap->tab_bits = (tab_bits = (uint8_t*)malloc(TABS_BITNB * sizeof(uint8_t)));
   tab_bits = registerMap->tab_bits;
+  tab_inreg = registerMap->tab_input_registers;
 
   try
   {
@@ -148,9 +152,39 @@ int main(void)
 void stopIt(int)
 {
   runIt = false;
-  printf("someone press CTRL+C, program gonna stop\r\n");
+  printf("\r\n[SYS]\t\t CTRL+C pressed, modbus test stop\r\n");
 }
-
+void printCurenData()
+{
+  printf("[SYS]\t\t  Curen Coil status : \r\n");
+  printf("[SYS]\t\t  \\ 0 1 2 3 4 5 6 7 \r\n");
+  printf("     \t\t 0  ");
+  for (int var = 0, var1 = 0; var < TABS_BITNB; var++, ++var1)
+    {
+      if(var1 == 8)
+        {
+          printf("\r\n");
+          printf("       \t\t%2d  ",var);
+          var1 = 0;
+        }
+      printf("%d ",tab_bits[var]);
+    }
+  printf("\r\n");
+  printf("[SYS]\t\t  Curen Input Register status : \r\n");
+  printf("[SYS]\t\t  \\ %5d %5d %5d %5d %5d %5d %5d %5d \r\n",0,1,2,3,4,5,6,7);
+  printf("     \t\t 0  ");
+  for (int var = 0, var1 = 0; var < TABS_INREG; var++, ++var1)
+    {
+      if(var1 == 8)
+        {
+          printf("\r\n");
+          printf("       \t\t%2d  ",var);
+          var1 = 0;
+        }
+      printf("%5d ",tab_inreg[var]);
+    }
+  printf("\r\n");
+}
 int handleIncomingData(modbus_t * Context, modbus_mapping_t * registerMap, int curenMSocket, fd_set * refSDesc, int maxFDesc)
 {
   uint8_t aduBuffer[MODBUS_TCP_MAX_ADU_LENGTH];
@@ -173,6 +207,7 @@ int handleIncomingData(modbus_t * Context, modbus_mapping_t * registerMap, int c
         printf("[SYS]\t\t Throw Exception on start device \r\n");
         printf("[DVS]\t\t\t\t %s\r\n", e);
       }
+      printCurenData();
       return maxFDesc;
     }
   printf("[SYS]\t\t Connection closed on socket %d\r\n", curenMSocket);
@@ -222,7 +257,6 @@ void setPin(unsigned char pin, unsigned char logic)
 {
   initPin(pin, PIN_OUTPUT);
   tab_bits[pin - 1] = logic == PIN_HIGH ? FALSE : TRUE;
-  printf("[DVS]\t\t setPin() on %d as %s \r\n", pin, tab_bits[pin - 1] ? "FALSE" : "TRUE");
 }
 
 bool getPin(unsigned char pin)
@@ -231,21 +265,20 @@ bool getPin(unsigned char pin)
 
   initPin(pin, PIN_OUTPUT);
   logic = tab_bits[pin - 1] != TRUE ? false : true;
-  printf("[DVS]\t\t getPin() on %d -> %s\r\n", pin, logic ? "FALSE" : "TRUE");
   return logic;
 }
 void freqGenerator_setPeriod(unsigned char pin, unsigned long period)
 {
-  printf("[DVS]\t\t freqGenerator_setPeriod() %c  %lu\r\n", pin, period);
+  tab_inreg[pin] = period;
 }
 void freqGenerator_setOut(unsigned char pin, bool logic)
 {
-  printf("[DVS]\t\t freqGenerator_setOut() %c  %d\r\n", pin, logic);
-  setPin(pin,logic);
+//  printf("[DVS]\t\t freqGenerator_setOut() %c  %d\r\n", pin, logic);
+  setPin(pin,!logic);
 }
 unsigned long plclib_millis()
 {
   unsigned long millis = clock();
-  printf("[DVS]\t\t plclib_milis() -> %lu\r\n", millis);
+//  printf("[DVS]\t\t plclib_milis() -> %lu\r\n", millis);
   return millis;
 }

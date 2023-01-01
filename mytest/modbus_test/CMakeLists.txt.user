@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 8.0.1, 2022-12-29T18:37:35. -->
+<!-- Written by QtCreator 8.0.1, 2022-12-31T09:48:52. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -348,7 +348,6 @@
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">modbus_test</value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">CMakeProjectManager.CMakeRunConfiguration.modbus_test</value>
     <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">modbus_test</value>
-    <value type="bool" key="RunConfiguration.RunAsRoot">true</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
     <value type="bool" key="RunConfiguration.UseLibrarySearchPath">true</value>
