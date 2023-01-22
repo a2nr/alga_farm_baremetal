@@ -45,6 +45,7 @@
 #define PIN_INPUT13     19
 #define PIN_INPUT14     20
 #define PIN_INPUT15     21
+
 #else
 
 // device 1
