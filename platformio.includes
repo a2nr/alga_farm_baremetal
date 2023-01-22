@@ -1,16 +1,17 @@
 ./
-E:/Documents/_KERJAAN/alga_farm_baremetal/include
-E:/Documents/_KERJAAN/alga_farm_baremetal/src
-E:/Documents/_KERJAAN/alga_farm_baremetal/lib/device
-E:/Documents/_KERJAAN/alga_farm_baremetal/lib/plclib
-E:/Documents/_KERJAAN/alga_farm_baremetal/.pio/libdeps/alga_farm_baremetal_debug/ModbusRTUSlave/src
-C:/Users/Kedung Kandang/.platformio/packages/framework-arduino-avr/cores/arduino
-C:/Users/Kedung Kandang/.platformio/packages/framework-arduino-avr/variants/eightanaloginputs
-C:/Users/Kedung Kandang/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src
-C:/Users/Kedung Kandang/.platformio/packages/framework-arduino-avr/libraries/HID/src
-C:/Users/Kedung Kandang/.platformio/packages/framework-arduino-avr/libraries/SPI/src
-C:/Users/Kedung Kandang/.platformio/packages/framework-arduino-avr/libraries/SoftwareSerial/src
-C:/Users/Kedung Kandang/.platformio/packages/framework-arduino-avr/libraries/Wire/src
-C:/Users/Kedung Kandang/.platformio/packages/toolchain-atmelavr/lib/gcc/avr/7.3.0/include
-C:/Users/Kedung Kandang/.platformio/packages/toolchain-atmelavr/lib/gcc/avr/7.3.0/include-fixed
-C:/Users/Kedung Kandang/.platformio/packages/toolchain-atmelavr/avr/include
+/home/a2nr/Documents/PlatformIO/Projects/alga_farm_baremetal/include
+/home/a2nr/Documents/PlatformIO/Projects/alga_farm_baremetal/src
+/home/a2nr/.platformio/packages/framework-arduino-avr/libraries/SoftwareSerial/src
+/home/a2nr/Documents/PlatformIO/Projects/alga_farm_baremetal/lib/device
+/home/a2nr/Documents/PlatformIO/Projects/alga_farm_baremetal/lib/plclib
+/home/a2nr/Documents/PlatformIO/Projects/alga_farm_baremetal/.pio/libdeps/alga_farm_baremetal_debug/ModbusRTUSlave/src
+/home/a2nr/Documents/PlatformIO/Projects/alga_farm_baremetal/.pio/libdeps/alga_farm_baremetal_debug/LibPrintf/src
+/home/a2nr/.platformio/packages/framework-arduino-avr/cores/arduino
+/home/a2nr/.platformio/packages/framework-arduino-avr/variants/standard
+/home/a2nr/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src
+/home/a2nr/.platformio/packages/framework-arduino-avr/libraries/HID/src
+/home/a2nr/.platformio/packages/framework-arduino-avr/libraries/SPI/src
+/home/a2nr/.platformio/packages/framework-arduino-avr/libraries/Wire/src
+/home/a2nr/.platformio/packages/toolchain-atmelavr/lib/gcc/avr/7.3.0/include
+/home/a2nr/.platformio/packages/toolchain-atmelavr/lib/gcc/avr/7.3.0/include-fixed
+/home/a2nr/.platformio/packages/toolchain-atmelavr/avr/include

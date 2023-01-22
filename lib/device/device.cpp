@@ -158,14 +158,14 @@ R_TRIG  risingSikatDisabeler;
 
 RS  membilasEnabeler;
 R_TRIG  risingTrigBilas;
-TON timerOnBilasEnabeler(10000);
+TON timerOnBilasEnabeler(2000);
 
 RS  heaterEnabeler;
 TON timerOnHeatingDone(60000);
 
 RS  aeratorEnabeler;
 F_TRIG  fallingTrigAerator;
-TON timerOnAeratorDone(60000);
+TON timerOnAeratorDone(3000);
 
 void start_device_satu()
 {
