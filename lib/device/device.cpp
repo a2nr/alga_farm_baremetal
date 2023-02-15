@@ -75,15 +75,15 @@ void start_device()
 #define DEVICE2_STP_PULSE   PIN_OUTPUT20
 #define DEVICE2_STP_EN      PIN_OUTPUT21
 
-#define SW_BILASISI         PIN_INPUT14/*A7*/
-#define SW_PENYIKAT         PIN_INPUT13/*A6*/
-#define SW_LMT_KANAN        PIN_INPUT12/*A5*/
-#define SW_LMT_KIRI         PIN_INPUT11/*A4*/
-#define ENABLE_SIKAT        PIN_INPUT10/*A3*/
-#define SW_KANAN            PIN_INPUT9/*A2*/
-#define SW_KIRI             PIN_INPUT8/*A1*/
+#define SW_BILASISI         PIN_INPUT15/*A7*/
+#define SW_PENYIKAT         PIN_INPUT14/*A6*/
+#define SW_LMT_KANAN        PIN_INPUT13/*A5*/
+#define SW_LMT_KIRI         PIN_INPUT12/*A4*/
+#define ENABLE_SIKAT        PIN_INPUT11/*A3*/
+#define SW_KANAN            PIN_INPUT10/*A2*/
+#define SW_KIRI             PIN_INPUT9/*A1*/
 
-#define DEVICE2_STP_SPEED       300
+#define DEVICE2_STP_SPEED   300
 #define DEVICE1_STP_SPEED	400
 
 #if defined(DEVICE_1) || defined(DEVICE_DEBUG)

@@ -4,6 +4,7 @@
 #if defined(ARDUINO_ARCH_AVR)
 #if defined(DEVICE_DEBUG)
 #define MODBUS_LAYER
+#elif defined(BETA_TEST)
 #else
 #define FREQ_IMP
 #endif
@@ -92,7 +93,7 @@ bool getPin(unsigned char pin)
 #ifdef MODBUS_LAYER
     return mbCoil[pin-1] != 1 ? false : true;
 #else
-#ifdef FREQ_IMP
+#if defined(FREQ_IMP) || defined(BETA_TEST)
     if((pin == A6) || (pin == A7))
         return analogRead(pin) > 40;
 #endif
@@ -112,14 +113,14 @@ void freqGenerator_setPeriod(unsigned char channel, unsigned long period)
 
 void freqGenerator_setOut(unsigned char channel, bool enable)
 {
-#ifdef MODBUS_LAYER
+#if defined(MODBUS_LAYER) || defined(BETA_TEST)
     setPin(channel, !enable);
 #endif
 #ifdef FREQ_IMP
     if(enable)
         FrequencyTimer2::enable();
     else
-        FrequencyTimer2::disable();
+        FrequencyTimer2::disable();    
 #endif
 }
 
