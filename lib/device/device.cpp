@@ -233,7 +233,7 @@ void start_device_satu()
   setPin(SEL_BILAS, !switchMenguras.Q1);
   setPin(SEL_TAMPUNG, !switchMenampung.Q1);
   setPin(SIKAT_ENABELER, !sikatEnabeler);
-  setPin(DEVICE1_STP_DIR, !device1StepperDirection.Q1);
+  setPin(DEVICE1_STP_DIR, device1StepperDirection.Q1);
   setPin(DEVICE1_STP_EN, !device1StepperEnable.Q1);
   freqGenerator_setOut(FREQGEN_CHANNEL_(DEVICE1_STP_PULSE), device1StepperEnable.Q1);
 }
@@ -313,9 +313,9 @@ void start_device_dua()
   bool  mtrPenyikat;
   bool  mtrPembilas;
 
-
+  risingTrigLimitKiri       .process(_switchLimitKiri);
   risingTrigSikatEnabeler   .process(_sikatEnabeler);
-  counterDownMenyikat       .process(risingTrigLimitKiri.process(_switchLimitKiri)
+  counterDownMenyikat       .process(risingTrigLimitKiri.Q
                                      , risingTrigSikatEnabeler.Q);
   jobDone                   = counterDownMenyikat.Q;
 
@@ -333,8 +333,8 @@ void start_device_dua()
   device2StepperEnable      .process(fallingTrigIsiBilas.Q
                                      || (risingTrigGotoKiri.Q )
                                      || (risingTrigGotoKanan.Q )
-                                     , (jobDone && _sikatEnabeler) || ( !_sikatEnabeler && (
-                                      risingTrigLimitKiri.process(_switchLimitKiri)
+                                     , (jobDone && _sikatEnabeler) || ( (!_sikatEnabeler) && (
+                                      risingTrigLimitKiri.Q
                                      || risingTrigLimitKanan.process(_switchLimitKanan)
                                      || fallingTrigGotoKiri.Q
                                      || fallingTrigGotoKanan.Q)));
